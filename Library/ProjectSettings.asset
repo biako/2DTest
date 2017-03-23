@@ -473,12 +473,12 @@ PlayerSettings:
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Build: 1
+    Build: 0
     Collab: 0
     ErrorHub: 0
     Hub: 0
     UNet: 1
-  cloudProjectId: 260aa614-4cd4-4ea0-872f-c09f90c59c4e
-  projectName: _2D v3 (1)
+  cloudProjectId: 9d50bab2-f9e6-48a6-978a-52f8fa877718
+  projectName: 2D Test
   organizationId: biako
   cloudEnabled: 0
