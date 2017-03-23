@@ -8,7 +8,7 @@ public class InputState : MonoBehaviour {
     public float absVely = 0f; // the velocity of y
 
     public bool standing; // standing?
-    public float standingVelocityThreshold = 1f; // standing threshold for velocity of y
+    public float standingVelocityThreshold = 0f; // standing threshold for velocity of y
     private bool lastInputRight = true; // last input is right?
 
     private Rigidbody2D body2d;

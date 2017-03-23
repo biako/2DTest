@@ -74,6 +74,13 @@ public class GameObjectUtil {
 
 
 
+    public static void GameOver() {
+        UI.centerText = "Game Over";
+        
+    }
+
+
+
 
 }
 
