@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Destroyer : MonoBehaviour {
+public class DestroyerTest : MonoBehaviour {
     public bool destroyOnAwake;         // Whether or not this gameobject should destroyed after a delay, on Awake.
     public float awakeDestroyDelay;     // The delay for destroying it on Awake.
     public bool findChild = false;              // Find a child game object and delete it
@@ -37,6 +37,6 @@ public class Destroyer : MonoBehaviour {
 
     void DestroyGameObject() {
         // Destroy this gameobject, this can be called from an Animation Event.
-        Destroy(gameObject);
+       Destroy(gameObject);
     }
 }

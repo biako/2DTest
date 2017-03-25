@@ -9,6 +9,7 @@ public class HealthHurt : MonoBehaviour {
     void Awake() {
 
     }
+
     void Start() {
 
     }
@@ -20,7 +21,7 @@ public class HealthHurt : MonoBehaviour {
 
     public void Hurt() {
 
-        GameObjectUtil.GameOver();
+       
 
     }
 

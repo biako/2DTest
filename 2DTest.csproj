@@ -86,12 +86,13 @@
     <Compile Include="Assets\Scripts\Character\HealthHurt.cs" />
     <Compile Include="Assets\Scripts\Character\InputState.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerAnimationManager.cs" />
+    <Compile Include="Assets\Scripts\Destory\DestroyerTest.cs" />
     <Compile Include="Assets\Scripts\Destory\TriggerDestory.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
-    <Compile Include="Assets\Scripts\GameManager\Reset.cs" />
+    <Compile Include="Assets\Scripts\GameManager\TimeManager.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\HealthPickup.cs" />
     <Compile Include="Assets\Scripts\LayBombs.cs" />
@@ -112,8 +113,9 @@
     <Compile Include="Assets\Scripts\ScoreShadow.cs" />
     <Compile Include="Assets\Scripts\SetParticleSortingLayer.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
+    <Compile Include="Assets\Scripts\Spawner\BasicSpawner.cs" />
+    <Compile Include="Assets\Scripts\Spawner\RocketEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\SetVelocity.cs" />
-    <Compile Include="Assets\Scripts\Spawner\SpawnerScript.cs" />
     <Compile Include="Assets\Scripts\TiledBackground.cs" />
     <Compile Include="Assets\Scripts\UI\UI.cs" />
   </ItemGroup>

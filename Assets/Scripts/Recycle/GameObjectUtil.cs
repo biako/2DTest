@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 // Utility class to replace original Instantiate() and Destory() methods.
-public class GameObjectUtil {
+public class GameObjectUtil : MonoBehaviour {
 
     // Each type of GameObject is stored in one pool. All the pools for different types of GameObjects are stored in the public static pools. The RecycleGameObject is used as the key of the pools dicitonary.
-    private static Dictionary<RecycleGameObject, ObjectPool> pools = new Dictionary<RecycleGameObject, ObjectPool>();
-
+    
+    private static Dictionary<RecycleGameObject, ObjectPool> pools = new Dictionary<RecycleGameObject, ObjectPool>();        
 
     private static ObjectPool GetObjectPool(RecycleGameObject recycleGameObject) {
         ObjectPool pool = null;
@@ -20,6 +21,7 @@ public class GameObjectUtil {
         // If there is no such GameObject as the key in the pools. Create a pool for such GameObject and add the pool into the pools dictionary.
         else {
             GameObject poolContainer = new GameObject(recycleGameObject.gameObject.name + "ObjectPool"); // Create a poolContainer to add the ObjectPool component.
+            poolContainer.tag = "ObjectPool";
             pool = poolContainer.AddComponent<ObjectPool>(); // Add the ObjectPool component
             pool.prefab = recycleGameObject; // Set the pool type
             pools.Add(recycleGameObject, pool); // Add the pool to the pools dictionary.
@@ -56,32 +58,30 @@ public class GameObjectUtil {
 
 
     /* To substitute the original Destory() 
-       To determine if whether recyleGameObject is attached to the prefab or not. (Recyclable GameObject will have a recyleGameObject) If yes, and call Shutdown(), i.e. set inactive. If no, call Destory() direclty.*/
+       To determine if whether recyleGameObject is attached to the prefab or not. (Recyclable GameObject will have a recyleGameObject) If yes, and call Shutdown(), i.e. set inactive  If no, call Destory() direclty.*/
 
     public static void Destroy(GameObject prefab) {
         RecycleGameObject recyleGameObject = prefab.GetComponent<RecycleGameObject>();
 
-        // If recyclable, Set the GameObject inactive
-        if (recyleGameObject != null) {
-            recyleGameObject.Shutdown(); // Set the GameObject inactive
+        // If recyclable, set the GameObject inactive
+        if (recyleGameObject != null) {           
+            recyleGameObject.Shutdown();// Set the GameObject inactive                     
         }
 
         // If not recyclable, call destory directly.
-        else {
+        if (recyleGameObject == null) {
             GameObject.Destroy(prefab);
         }
     }
 
 
+   
 
-    public static void GameOver() {
-        UI.centerText = "Game Over";
-        
-    }
-
-
-
-
+    
 }
+
+
+
+
 
 

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerScript : MonoBehaviour {
-    
-    public GameObject[] prefabs; // To store GameObjects
-    public bool active = true; // Whether spawner timer is active
+
+// Inherited from BasicSpawner. BasicSpawner can initiate only a Singleton instance. RocketEnemySpawner can initiate multiple instances at random intervals within a given range of delaytime
+public class RocketEnemySpawner : BasicSpawner { 
+        
     public Vector2 delayRange = new Vector2(3, 5); // Range of delay time
     public float delay = 0; // Delay time of spawning
     
@@ -24,11 +24,15 @@ public class SpawnerScript : MonoBehaviour {
         if (active) { // If Spanwer time is active
             Transform newTransform = transform;
             GameObjectUtil.Instantiate(prefabs[0], newTransform.position);
+            //GameObject.Instantiate(prefabs[0], newTransform);
             SetDelayTime();
-        }
-        
-        StartCoroutine(Generator());
-        
+        }      
+        StartCoroutine(Generator());        
+    }
+
+    void Update() {
+        // Override the update of BasicSpawner
+
     }
 
 

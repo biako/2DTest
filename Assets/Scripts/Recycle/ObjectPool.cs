@@ -36,6 +36,17 @@ public class ObjectPool : MonoBehaviour {
         return instance;
     }
 
+    public RecycleGameObject GetInactiveObject() {
+        RecycleGameObject instance = null;
+        // If there is an instance in the pool, get the instance from the pool
+        foreach (RecycleGameObject poolInstance in pool) {
+            if (!poolInstance.gameObject.activeSelf) { // If the instance is inactive.
+                instance = poolInstance;             
+            }
+        }
+        return instance;
+    }
+
 
 
 }

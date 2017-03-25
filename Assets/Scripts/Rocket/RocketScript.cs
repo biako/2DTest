@@ -3,16 +3,15 @@ using System.Collections;
 
 public class RocketScript : MonoBehaviour {
     public GameObject explosion;		// Prefab of explosion effect.
+    public GameManager gameManager; 
     public string coltag;
 
     void Awake() {
-
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void OnExplode() {
         // Create a quaternion with a random rotation in the z-axis.
-
 
         Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
 
@@ -29,7 +28,8 @@ public class RocketScript : MonoBehaviour {
         if (collision.gameObject.tag == "Player") {
             // ... find the Player script and call the Hurt function.
             //collision.gameObject.GetComponent<HealthHurt>().Hurt();
-            GameObjectUtil.GameOver();
+            gameManager.OnPlayerKilled();
+
         }           
 
     }

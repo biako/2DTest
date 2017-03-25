@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 114240446648111328}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1489378897198114}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.63, y: 1.93, z: 0}
+  m_LocalPosition: {x: -5.94, y: -0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b32e6245507e6b4d9d69833a5f78ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StillThreshold: 2
+  stillThreshold: 0.5
 --- !u!114 &114520077018480660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,8 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f951b71ff6514748b0fc369b2bad11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpButton: 0
-  jumpButtonUp: 0
+  jumpButtonDown: 0
   rightButton: 0
   leftButton: 0
   noInput: 0
@@ -155,8 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSpeed: 40
-  forwardSpeed: 6
-  jumpMinIntervalMillisecond: 500
+  forwardSpeed: 10
 --- !u!114 &114911171814948782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,7 +195,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1783731295
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300010, guid: 267b1a5aab0830d45bc89663a8f3efe0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
