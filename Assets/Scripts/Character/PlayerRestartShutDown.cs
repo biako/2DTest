@@ -7,6 +7,7 @@ public class PlayerRestartShutDown : MonoBehaviour, IRecycle {
         GetComponent<InputState>().enabled = true;
         GetComponent<Animator>().enabled = true;
         GetComponent<Actions>().enabled = true;
+        GetComponent<InputState>().lastInputRight = true;
         gameObject.layer = 9;
 
     }

@@ -10,13 +10,14 @@ public class InputState : MonoBehaviour {
     public bool standing; // standing?
 
     public float standingVelocityThreshold = 0f; // standing threshold for velocity of y
-    private bool lastInputRight = true; // last input is right?
+    public bool lastInputRight = true; // last input is right?
 
     private Rigidbody2D body2d;
 
     // Rigidbody should get during Awake, not Start
     void Awake() {
         body2d = GetComponent<Rigidbody2D>();
+        lastInputRight = true;
 
     }
 
