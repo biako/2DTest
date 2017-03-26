@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Actions : MonoBehaviour {
 
-    public float jumpSpeed = 40f;
+    public float jumpSpeed = 50f;
     public float forwardSpeed = 10f;
     public AudioSource soundClips;
 
