@@ -427,6 +427,9 @@ MonoBehaviour:
   spawners:
   - {fileID: 1597233542}
   - {fileID: 937212788}
+  destoryInactiveDuration: 30
+  garbageCollectionInterval: 10
+  pools: []
 --- !u!4 &301519248
 Transform:
   m_ObjectHideFlags: 0

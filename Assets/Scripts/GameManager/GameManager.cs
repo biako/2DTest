@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {    
-    public  List<BasicSpawner> spawners;
+public class GameManager : MonoBehaviour {
+    public List<BasicSpawner> spawners;
     private TimeManager timeManager;
-    private GameObject player;    //public GameObject playerPrefab;
-
+    
     public double destoryInactiveDuration = 30d; // If the recycled object is inactive for this duration, the recycled object is destoryed permanently.
-    public float garbageCollectionInterval = 1f;
+    public float garbageCollectionInterval = 10f; // Interval for the garbagae colleciton process to run.
     public GameObject[] pools;
 
 
@@ -20,17 +19,18 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start() {
         ResetGame();
+        StartCoroutine(GarbageCollection());
     }
 
     void Update() {
-        StartCoroutine(GarbageCollection());
+        
     }
 
     public void ResetGame() {
         foreach (BasicSpawner spawner in spawners) {
             spawner.active = true;
-        }    
-    }     
+        }
+    }
 
     public void ResumeGame() {
         Time.timeScale = 1;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
         foreach (BasicSpawner spawner in spawners) {
             spawner.active = false;
         }
-        timeManager.ManipulateTime(0, 5f);
+        timeManager.ManipulateTime(0, 0.5f);
     }
 
     // Destory recycleable GameObejects being inactive for destoryInactiveDuration
@@ -57,11 +57,13 @@ public class GameManager : MonoBehaviour {
 
                 ObjectPool poolComponent = pool.GetComponent<ObjectPool>();
 
-                /*while (poolComponent.GetInactiveObject()) {
-                    RecycleGameObject poolInstance = poolComponent.GetInactiveObject();
-                    //if (DateTime.Now.Subtract(poolInstance.lastTimeDestoryed).TotalSeconds >= destoryInactiveDuration) GameObject.Destroy(poolInstance);
-                }*/
-                    
+                foreach (RecycleGameObject poolInstance in poolComponent.pool) {
+                    if (poolInstance != null) {
+                        if (!poolInstance.isActiveAndEnabled &&
+                            (DateTime.Now - poolInstance.lastTimeDestoryed).TotalSeconds >= destoryInactiveDuration)
+                            Destroy(poolInstance.gameObject);
+                    }
+                }
             }
         }
         StartCoroutine(GarbageCollection());

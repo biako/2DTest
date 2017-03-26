@@ -15,6 +15,7 @@ public class BasicSpawner : MonoBehaviour {
             singleGenerated = true;
             active = false; // Set the spanwer inactive
         }
+        
     }
 
 

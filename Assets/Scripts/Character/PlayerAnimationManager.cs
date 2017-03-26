@@ -18,6 +18,6 @@ public class PlayerAnimationManager : MonoBehaviour {
 	void Update () {
         animator.SetBool("IsRunning", inputState.leftButton || inputState.rightButton); 
         animator.SetBool("IsJumping", inputState.jumpButtonDown|| Mathf.Abs(body2d.velocity.y) > stillThreshold);
-        animator.SetBool("IsStill", Mathf.Abs(body2d.velocity.x) == 0 && Mathf.Abs(body2d.velocity.y) == 0);
+        //animator.SetBool("IsStill", Mathf.Abs(body2d.velocity.x) == 0 && Mathf.Abs(body2d.velocity.y) == 0);
     }
 }

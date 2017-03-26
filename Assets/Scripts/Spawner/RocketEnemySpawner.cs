@@ -4,13 +4,13 @@ using UnityEngine;
 
 
 // Inherited from BasicSpawner. BasicSpawner can initiate only a Singleton instance. RocketEnemySpawner can initiate multiple instances at random intervals within a given range of delaytime
-public class RocketEnemySpawner : BasicSpawner { 
-        
+public class RocketEnemySpawner : BasicSpawner {
+
     public Vector2 delayRange = new Vector2(3, 5); // Range of delay time
     public float delay = 0; // Delay time of spawning
-    
-    
-    void Start () {
+
+
+    void Start() {
         SetDelayTime(); // Initialize the delaytime. The delaytime is a random number between the delayrange
         StartCoroutine(Generator());
 
@@ -26,19 +26,19 @@ public class RocketEnemySpawner : BasicSpawner {
             GameObjectUtil.Instantiate(prefabs[0], newTransform.position);
             //GameObject.Instantiate(prefabs[0], newTransform);
             SetDelayTime();
-        }      
-        StartCoroutine(Generator());        
+        }
+        StartCoroutine(Generator());
     }
 
     void Update() {
-        // Override the update of BasicSpawner
+        // override the update of basicspawner
 
     }
 
 
-    void SetDelayTime () {
+    void SetDelayTime() {
         delay = Random.Range(delayRange.x, delayRange.y);
     }
-	
+
 
 }

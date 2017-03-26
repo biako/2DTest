@@ -22,7 +22,7 @@ public class RocketScript : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         coltag = collision.gameObject.tag;
         OnExplode();
-        GameObjectUtil.Destroy(gameObject);
+        GameObjectUtil.Destroy(gameObject); // Destroy the rocket
         // If it hits the player...
 
         if (collision.gameObject.tag == "Player") {

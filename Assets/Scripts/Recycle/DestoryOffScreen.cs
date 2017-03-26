@@ -48,8 +48,7 @@ public class DestoryOffScreen : MonoBehaviour {
 
     void OnOutOfBounds() {
         offscreen = false;
-        GameObjectUtil.Destroy(gameObject);
-        //GameObject.Destroy(gameObject);
+        GameObjectUtil.Destroy(gameObject);        
     }
 }
 

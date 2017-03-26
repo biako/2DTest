@@ -6,9 +6,8 @@ using UnityEngine;
 // RecycleGameObject should be attached to the prefab that is recyclable. IRecycle should be implmeneted for other scripts that do the restart and shutdown work.
 public class RecycleGameObject : MonoBehaviour {
     private List<IRecycle> recycleComponentScriptList;
-    public DateTime lastTimeDestoryed; // The last time the object is destoryed.
-    public double nowFromLastTimeDestoryed;
-
+    public DateTime lastTimeDestoryed; // The last time the object is destoryed.    
+    public double nowFromLastTimeDestoryed; // Display this for debug only.
     // This is used to get all the components scripts that implements IRecycle interface of the recyclable GameObject and store the reference into a list.
     void Awake() {
         MonoBehaviour[] componentScripts = GetComponents<MonoBehaviour>();
@@ -20,15 +19,17 @@ public class RecycleGameObject : MonoBehaviour {
     }
 
     void Update() {
-        nowFromLastTimeDestoryed = DateTime.Now.Subtract(lastTimeDestoryed).TotalSeconds;
+        nowFromLastTimeDestoryed = (DateTime.Now - lastTimeDestoryed).TotalSeconds;
+
     }
 
     public void Restart() {
+        lastTimeDestoryed = DateTime.Now;
         gameObject.SetActive(true); // Set the GameObject active
 
         // Call Restart in the component script
         foreach (IRecycle componentScript in recycleComponentScriptList) {
-            componentScript.Restart();
+            if (componentScript != null) componentScript.Restart();
         }
     }
 
@@ -39,7 +40,7 @@ public class RecycleGameObject : MonoBehaviour {
 
         // Call Shutdown in the component script
         foreach (IRecycle componentScript in recycleComponentScriptList) {
-            componentScript.Shutdown();
+            if (componentScript != null) componentScript.Shutdown();
         }
     }
 }

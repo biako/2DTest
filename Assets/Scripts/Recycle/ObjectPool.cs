@@ -4,9 +4,9 @@ using UnityEngine;
 
 // The ObjectPool will be attached to a PoolContainer automatically 
 public class ObjectPool : MonoBehaviour {
-    
+
     public RecycleGameObject prefab;
-    private List<RecycleGameObject> pool = new List<RecycleGameObject>();
+    public List<RecycleGameObject> pool = new List<RecycleGameObject>();
 
 
     private RecycleGameObject CreateInstance(Vector3 pos) {
@@ -23,9 +23,11 @@ public class ObjectPool : MonoBehaviour {
 
         // If there is an instance in the pool, get the instance from the pool
         foreach (RecycleGameObject poolInstance in pool) {
-            if (!poolInstance.gameObject.activeSelf) { // If the instance is inactive.
-                instance = poolInstance;
-                instance.transform.position = pos;
+            if (poolInstance != null) {
+                if (!poolInstance.gameObject.activeSelf) { // If the instance is inactive.
+                    instance = poolInstance;
+                    instance.transform.position = pos;
+                }
             }
         }
 
@@ -39,11 +41,11 @@ public class ObjectPool : MonoBehaviour {
     public RecycleGameObject GetInactiveObject() {
         RecycleGameObject instance = null;
         // If there is an instance in the pool, get the instance from the pool
-        foreach (RecycleGameObject poolInstance in pool) {
-            if (!poolInstance.gameObject.activeSelf) { // If the instance is inactive.
-                instance = poolInstance;             
-            }
-        }
+        //foreach (RecycleGameObject poolInstance in pool) {
+        //    if (!poolInstance.gameObject.activeSelf) { // If the instance is inactive.
+        //        instance = poolInstance;             
+        //    }
+        //}       
         return instance;
     }
 
