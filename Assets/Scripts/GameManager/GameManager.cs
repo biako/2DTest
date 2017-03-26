@@ -168,10 +168,14 @@ public class GameManager : MonoBehaviour {
 
 
     void ResumeGame() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) player.GetComponent<InputState>().enabled = true;
         Time.timeScale = 1;
     }
 
     void PauseGame() {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) player.GetComponent<InputState>().enabled = false;
         Time.timeScale = 0;
     }
 
