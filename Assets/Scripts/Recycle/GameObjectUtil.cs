@@ -7,8 +7,8 @@ using UnityEngine;
 public class GameObjectUtil : MonoBehaviour {
 
     // Each type of GameObject is stored in one pool. All the pools for different types of GameObjects are stored in the public static pools. The RecycleGameObject is used as the key of the pools dicitonary.
-    
-    private static Dictionary<RecycleGameObject, ObjectPool> pools = new Dictionary<RecycleGameObject, ObjectPool>();        
+
+    private static Dictionary<RecycleGameObject, ObjectPool> pools = new Dictionary<RecycleGameObject, ObjectPool>();
 
     private static ObjectPool GetObjectPool(RecycleGameObject recycleGameObject) {
         ObjectPool pool = null;
@@ -64,7 +64,7 @@ public class GameObjectUtil : MonoBehaviour {
         RecycleGameObject recyleGameObject = prefab.GetComponent<RecycleGameObject>();
 
         // If recyclable, set the GameObject inactive
-        if (recyleGameObject != null) {           
+        if (recyleGameObject != null) {
             recyleGameObject.Shutdown();// Set the GameObject inactive                     
         }
 
@@ -74,12 +74,17 @@ public class GameObjectUtil : MonoBehaviour {
         }
     }
 
+    public static void Destroy(GameObject[] prefabs) {       
+        for (int i=0; i < prefabs.Length; i++) {
+            Destroy(prefabs[i]);
+        }
+    }
+}
+
 
    
 
-    
-}
-
+  
 
 
 

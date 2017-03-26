@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4626969970986886}
   - component: {fileID: 95977072124895094}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4970316221802124}
   - component: {fileID: 212643795065518624}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flame1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 114635164497671666}
   - component: {fileID: 114236343811202032}
   - component: {fileID: 114878296295472404}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RocketTest
   m_TagString: Rocket
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4477143074074298}
   - component: {fileID: 212611753651024030}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: part_rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4336048624681588}
   - component: {fileID: 212860664062143802}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: flame2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3eac0c388b15f4faaecc96336e093d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nowFromLastTimeDestoryed: 0
 --- !u!114 &114635164497671666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,6 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 100000, guid: c99c636a1271d114ea7181bbb4639cb1, type: 2}
+  gameManager: {fileID: 0}
   coltag: 
 --- !u!114 &114963211868373614
 MonoBehaviour:
