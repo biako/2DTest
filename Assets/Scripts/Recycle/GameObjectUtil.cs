@@ -43,12 +43,13 @@ public class GameObjectUtil : MonoBehaviour {
         if (recyleGameObject != null) {
             ObjectPool pool = GetObjectPool(recyleGameObject); // Get the pool from all the pools
             instance = pool.NextObject(pos).gameObject; // Get the object from the pool
+            instance.transform.localScale = new Vector3 (Mathf.Abs(instance.transform.localScale.x), Mathf.Abs(instance.transform.localScale.y), Mathf.Abs(instance.transform.localScale.z)); // Reset the flip of the recycled object.
         }
 
         // If not recyclable, call instantitate directly.
         else {
             instance = GameObject.Instantiate(prefab);
-            instance.transform.position = pos;
+            instance.transform.position = pos;       
 
         }
         return instance;

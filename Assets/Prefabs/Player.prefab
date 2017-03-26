@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 114454403294325066}
   - component: {fileID: 114911171814948782}
   - component: {fileID: 114240446648111328}
+  - component: {fileID: 114974084682013736}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -59,10 +60,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0.5
   m_AngularDrag: 0.5
-  m_GravityScale: 10
+  m_GravityScale: 8
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
@@ -153,8 +154,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a1b0306b11be1540ae80893f8fa5e24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 40
+  jumpSpeed: 50
   forwardSpeed: 10
+  soundClips: {fileID: 0}
 --- !u!114 &114911171814948782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,6 +169,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nowFromLastTimeDestoryed: 0
+--- !u!114 &114974084682013736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489378897198114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636a74713a7dcc84390a8e52ac706ea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212901824529845308
 SpriteRenderer:
   m_ObjectHideFlags: 1

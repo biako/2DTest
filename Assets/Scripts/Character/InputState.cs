@@ -17,30 +17,42 @@ public class InputState : MonoBehaviour {
     // Rigidbody should get during Awake, not Start
     void Awake() {
         body2d = GetComponent<Rigidbody2D>();
+
+    }
+
+    void Start() {
+        lastInputRight = true;
     }
 
     // Input should be checked during Update
     void Update() {
-        jumpButtonDown = Input.GetButtonDown("Jump");
-        rightButton = Input.GetAxis("Horizontal") > 0; // Return true if right button is down.       
-        leftButton = Input.GetAxis("Horizontal") < 0;
-        //noInput = !(jumpButtonDown || leftButton || rightButton); // No valid input at all
+        if (Time.timeScale != 0) {
+            jumpButtonDown = Input.GetButtonDown("Jump");
+            rightButton = Input.GetAxis("Horizontal") > 0; // Return true if right button is down.       
+            leftButton = Input.GetAxis("Horizontal") < 0;
+            //noInput = !(jumpButtonDown || leftButton || rightButton); // No valid input at all
 
-        if (leftButton) {
-            if (lastInputRight) flip();
-            lastInputRight = false;
+            if (leftButton) {
+                if (lastInputRight) flip();
+                lastInputRight = false;
+            }
+
+            if (rightButton) {
+                if (!lastInputRight) flip();
+                lastInputRight = true;
+            }
+            
         }
-
-        if (rightButton) {
-            if (!lastInputRight) flip();
+        else {
             lastInputRight = true;
         }
     }
 
     // Rendering of rigidbody should be done in fixedupdate
     void FixedUpdate() {
-        absVely = System.Math.Abs(body2d.velocity.y); // get the aboslute of the velocity v of the rigidbody
-        standing = absVely <= standingVelocityThreshold; // return true if <= the threshold
+        absVely = Mathf.Abs(body2d.velocity.y); // get the aboslute of the velocity v of the rigidbody
+        //standing = (absVely <= standingVelocityThreshold); // return true if <= the threshold
+        standing = (absVely == 0);
     }
 
     void flip() {

@@ -12,12 +12,16 @@ public class GameManager : MonoBehaviour {
     private bool playerKilled; // Player killed?
 
     public Text timeText, scoreText, continueText, gameOverText, countDownText;
-    public AudioSource beepSound;
+    public AudioSource soundClips, musicClips;
+
+    private bool gameOver;
     private int blinkTime;
     private bool blink;
     public int score;
-    private float timeElapsed;
     private int bestScore;
+    public int totalSeconds;
+    public float timeRemaining;
+
 
 
     public double destoryInactiveDuration = 30d; // If the recycled object is inactive for this duration, the recycled object is destoryed permanently.
@@ -32,23 +36,30 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         playerKilled = false;
         gameStarted = false;
-        timeElapsed = 0;
         score = 0;
-        continueText.text = "Press 'Any' Key To Continue";
+        continueText.text = "Press Enter Key To Continue";
+        scoreText.text = "0";
         gameOverText.text = "Game Over";
         gameOverText.canvasRenderer.SetAlpha(0);
+        totalSeconds = 60;
+        timeRemaining = totalSeconds;
+        timeText.text = FormatTime(timeRemaining);
     }
 
     void Update() {
         if (!gameStarted && Time.timeScale == 0) {
-            if (Input.anyKeyDown) {
+            if (Input.GetKeyDown(KeyCode.Return)) {
                 ResumeGame();
                 ResetGame();
             }
 
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && gameStarted) {
+        if (Input.GetKeyDown(KeyCode.P) && gameStarted && !gameOver) {
+
+            soundClips.pitch = 1.0f;
+            soundClips.clip = soundClips.GetComponent<AudioClips>().startClip;
+            soundClips.Play();
             if (Time.timeScale == 1) {
                 PauseGame();
             }
@@ -60,17 +71,28 @@ public class GameManager : MonoBehaviour {
 
         if (!gameStarted) {
             blinkTime++;
-            if (blinkTime % 40 == 0) {
+            if (blinkTime % 30 == 0) {
                 blink = !blink;
             }
             continueText.canvasRenderer.SetAlpha(blink ? 0 : 1);
+
         }
         else {
-            timeElapsed += Time.deltaTime;
-            timeText.text = FormatTime(timeElapsed);
             scoreText.text = score.ToString();
             continueText.canvasRenderer.SetAlpha(0);
-            gameOverText.canvasRenderer.SetAlpha(0);
+            if (!gameOver) {
+                if (timeRemaining >= 0) {
+                    timeRemaining -= Time.deltaTime;
+                    timeText.text = FormatTime(timeRemaining);
+                }
+
+                else {
+                    timeRemaining = 0;
+                    timeText.text = FormatTime(timeRemaining);
+                    gameOverText.text = "You Win!";
+                    OnGameEnd(false);
+                }
+            };
         }
     }
 
@@ -83,36 +105,65 @@ public class GameManager : MonoBehaviour {
 
 
     public void ResetGame() {
+
         if (playerKilled) {
             GameObjectUtil.Destroy(GameObject.FindGameObjectsWithTag("Player"));
             GameObjectUtil.Destroy(GameObject.FindGameObjectsWithTag("Rocket"));
         }
-        gameStarted = true;
+
+        gameOver = false;
+        continueText.text = "";
+        scoreText.text = "0";
+        gameOverText.text = "Game Over";
+        gameOverText.canvasRenderer.SetAlpha(0);
+        countDownText.canvasRenderer.SetAlpha(1);
+        timeRemaining = totalSeconds;
+        timeText.text = FormatTime(timeRemaining);
+        score = 0;
+        timeText.text = FormatTime(0);
         StartCoroutine(CountDownResetGame(3));
     }
 
+
+
+
     private IEnumerator CountDownResetGame(int seconds) {
-        countDownText.canvasRenderer.SetAlpha(1);
-        beepSound.pitch = 0.8f;
+        countDownText.text = "";
+        soundClips.pitch = 1.0f;
+        soundClips.clip = soundClips.GetComponent<AudioClips>().startClip;
+        soundClips.Play();
+        timeRemaining = totalSeconds;
+        timeText.text = FormatTime(timeRemaining);
+        yield return new WaitForSeconds(1);
+        soundClips.pitch = 0.8f;
+        soundClips.clip = soundClips.GetComponent<AudioClips>().beepClip;
         int i = seconds;
         while (i > 0) {
-            beepSound.Play();
+            soundClips.Play();
             countDownText.text = i.ToString();
             i--;
             yield return new WaitForSeconds(1);
         }
-        beepSound.Play();
-        beepSound.pitch = 1.6f;
+
+        soundClips.pitch = 1.6f;
+        soundClips.clip = soundClips.GetComponent<AudioClips>().beepClip;
+        soundClips.Play();
         countDownText.text = "Go!";
+
         yield return new WaitForSeconds(0.5f);
         countDownText.canvasRenderer.SetAlpha(0);
 
+        gameStarted = true;
+
+        musicClips.clip = musicClips.GetComponent<Music>().musicMusic;
+        musicClips.Play();
 
         foreach (BasicSpawner spawner in spawners) {
             spawner.active = true;
         }
-        timeElapsed = 0;
+
         StartCoroutine(GarbageCollection());
+
     }
 
 
@@ -124,17 +175,59 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
     }
 
-    public void OnPlayerKilled() {
-        foreach (BasicSpawner spawner in spawners) {
-            spawner.active = false;
+
+
+    public void OnGameEnd(bool killed) {
+        if (!gameOver) {
+            gameOver = true;
+            foreach (BasicSpawner spawner in spawners) {
+                spawner.active = false;
+            }
+
+            //timeManager.ManipulateTime(0, 0.5f);
+            StartCoroutine(GameEnd(killed));
         }
-        Time.timeScale = 0;
-        //timeManager.ManipulateTime(0, 0.5f);
-        gameStarted = false;
-        playerKilled = true;
-        continueText.text = String.Format("Press 'Any' Key To Try Again");
-        gameOverText.canvasRenderer.SetAlpha(1);
     }
+
+    IEnumerator GameEnd(bool killed) {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        player.GetComponent<InputState>().enabled = false;
+        player.GetComponent<Actions>().enabled = false;
+        player.GetComponent<Animator>().enabled = false;
+        player.layer = 15;
+
+        if (killed) {
+            musicClips.clip = musicClips.GetComponent<Music>().deathMusic1;
+            musicClips.Play();
+            yield return new WaitForSeconds(1);
+            player.layer = 16;
+
+            player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 10f);
+            musicClips.clip = musicClips.GetComponent<Music>().deathMusic2;
+            musicClips.Play();
+            yield return new WaitForSeconds(3);
+
+            playerKilled = true;
+            gameOverText.canvasRenderer.SetAlpha(1);
+            musicClips.clip = musicClips.GetComponent<Music>().gameOverMusic;
+            musicClips.Play();
+            yield return new WaitForSeconds(5);
+        }
+
+        else {
+            playerKilled = true;
+            gameOverText.canvasRenderer.SetAlpha(1);
+            musicClips.clip = musicClips.GetComponent<Music>().timeupMusic; //
+            musicClips.Play();
+            yield return new WaitForSeconds(7);
+        }
+
+        gameStarted = false;
+        continueText.text = String.Format("Press Enter Key To Try Again");
+        Time.timeScale = 0;
+    }
+
 
     // Destory recycleable GameObejects being inactive for destoryInactiveDuration
     IEnumerator GarbageCollection() {

@@ -76,6 +76,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AnimatedTexture.cs" />
+    <Compile Include="Assets\Scripts\Audio\AudioClips.cs" />
+    <Compile Include="Assets\Scripts\Audio\Music.cs" />
     <Compile Include="Assets\Scripts\BackgroundParallax.cs" />
     <Compile Include="Assets\Scripts\BackgroundPropSpawner.cs" />
     <Compile Include="Assets\Scripts\Bomb.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Assets\Scripts\Character\HealthHurt.cs" />
     <Compile Include="Assets\Scripts\Character\InputState.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerAnimationManager.cs" />
+    <Compile Include="Assets\Scripts\Character\PlayerRestartShutDown.cs" />
     <Compile Include="Assets\Scripts\Destory\DestroyerTest.cs" />
     <Compile Include="Assets\Scripts\Destory\TriggerDestory.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
@@ -108,6 +111,8 @@
     <Compile Include="Assets\Scripts\Recycle\RestartShutdown.cs" />
     <Compile Include="Assets\Scripts\Remover.cs" />
     <Compile Include="Assets\Scripts\Rocket.cs" />
+    <Compile Include="Assets\Scripts\Rocket\RocketRestartShutDown.cs" />
+    <Compile Include="Assets\Scripts\Rocket\RocketScore.cs" />
     <Compile Include="Assets\Scripts\Rocket\RocketScript.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\ScoreShadow.cs" />

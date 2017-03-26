@@ -23,6 +23,6 @@ public class SetVelocity : MonoBehaviour {
 
     void FixedUpdate()
     {
-       body2d.velocity = velocity;
+       body2d.velocity = new Vector2(velocity.x, body2d.velocity.y);
     }
 }

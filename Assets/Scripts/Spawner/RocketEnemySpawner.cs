@@ -31,7 +31,7 @@ public class RocketEnemySpawner : BasicSpawner {
     }
 
     void Update() {
-        // override the update of basicspawner
+        // override the update of BasicSpawner
 
     }
 
