@@ -514,7 +514,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 1708699446837098, guid: 6c92517ca7c4edf46b90eb55582d8ae0, type: 2}
   active: 0
-  delayRange: {x: 5, y: 6}
+  delayRange: {x: 7, y: 7}
   delay: 0
 --- !u!4 &300713604
 Transform:
@@ -1750,7 +1750,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 1708699446837098, guid: 6c92517ca7c4edf46b90eb55582d8ae0, type: 2}
   active: 0
-  delayRange: {x: 3, y: 5}
+  delayRange: {x: 5, y: 5}
   delay: 0
 --- !u!4 &1597233543
 Transform:

@@ -20,7 +20,8 @@ public class RocketScore : MonoBehaviour {
             soundClips.clip = soundClips.GetComponent<AudioClips>().scoreClip;
             soundClips.Play();
             gameManager.score += 10; // add score
-            gameObject.transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,-40f); // push the rocket down
+            //gameObject.transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,-40f); // push the rocket down
+            gameObject.transform.parent.gameObject.layer = 16;
 
         }
 
