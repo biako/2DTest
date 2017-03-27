@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public List<BasicSpawner> spawners;
-    private TimeManager timeManager;
+    //private TimeManager timeManager;
     private GameObject[] pools;
     private bool gameStarted; // Game has started?
     private bool playerKilled; // Player killed?
@@ -22,13 +22,12 @@ public class GameManager : MonoBehaviour {
     public int totalSeconds;
     public float timeRemaining;
 
-
-
+    
     public double destoryInactiveDuration = 30d; // If the recycled object is inactive for this duration, the recycled object is destoryed permanently.
     public float garbageCollectionInterval = 10f; // Interval for the garbagae colleciton process to run.
 
     private void Awake() {
-        timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+        //timeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
     }
 
 
@@ -47,16 +46,16 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
+        // if game has not started, press key to start
         if (!gameStarted && Time.timeScale == 0) {
             if (Input.GetKeyDown(KeyCode.Return)) {
                 ResumeGame();
                 ResetGame();
             }
-
         }
 
-        if (Input.GetKeyDown(KeyCode.P) && gameStarted && !gameOver) {
-
+        // if game has started, for the pauser:
+        if (Input.GetKeyDown(KeyCode.P) && gameStarted && !gameOver) {      
             soundClips.pitch = 1.0f;
             soundClips.clip = soundClips.GetComponent<AudioClips>().startClip;
             soundClips.Play();
@@ -68,25 +67,25 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-
-        if (!gameStarted) {
+        // if game has not started, set the blink text
+        if (!gameStarted) { 
             blinkTime++;
             if (blinkTime % 30 == 0) {
                 blink = !blink;
             }
             continueText.canvasRenderer.SetAlpha(blink ? 0 : 1);
-
         }
+        // if game has started, set the timer text
         else {
             scoreText.text = score.ToString();
             continueText.canvasRenderer.SetAlpha(0);
-            if (!gameOver) {
+            if (!gameOver) { // time is not up, count down time
                 if (timeRemaining >= 0) {
                     timeRemaining -= Time.deltaTime;
                     timeText.text = FormatTime(timeRemaining);
                 }
 
-                else {
+                else { // time is up
                     timeRemaining = 0;
                     timeText.text = FormatTime(timeRemaining);
                     gameOverText.text = "You Win!";
@@ -98,7 +97,7 @@ public class GameManager : MonoBehaviour {
 
 
 
-    string FormatTime(float value) {
+    string FormatTime(float value) { // convert to time format as "00:00"
         TimeSpan t = TimeSpan.FromSeconds(value);
         return string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
     }
@@ -106,7 +105,7 @@ public class GameManager : MonoBehaviour {
 
     public void ResetGame() {
 
-        if (playerKilled) {
+        if (playerKilled) { // if player has been killed, destory the player and rockets
             GameObjectUtil.Destroy(GameObject.FindGameObjectsWithTag("Player"));
             GameObjectUtil.Destroy(GameObject.FindGameObjectsWithTag("Rocket"));
         }
@@ -123,10 +122,7 @@ public class GameManager : MonoBehaviour {
         timeText.text = FormatTime(0);
         StartCoroutine(CountDownResetGame(3));
     }
-
-
-
-
+    
     private IEnumerator CountDownResetGame(int seconds) {
         countDownText.text = "";
         soundClips.pitch = 1.0f;
@@ -135,6 +131,7 @@ public class GameManager : MonoBehaviour {
         timeRemaining = totalSeconds;
         timeText.text = FormatTime(timeRemaining);
         yield return new WaitForSeconds(1);
+
         soundClips.pitch = 0.8f;
         soundClips.clip = soundClips.GetComponent<AudioClips>().beepClip;
         int i = seconds;
@@ -158,24 +155,24 @@ public class GameManager : MonoBehaviour {
         musicClips.clip = musicClips.GetComponent<Music>().musicMusic;
         musicClips.Play();
 
-        foreach (BasicSpawner spawner in spawners) {
+        foreach (BasicSpawner spawner in spawners) { // set all the spawners active
             spawner.active = true;
         }
 
-        StartCoroutine(GarbageCollection());
+        StartCoroutine(GarbageCollection()); // start garbage collection coroutine
 
     }
 
 
     void ResumeGame() {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) player.GetComponent<InputState>().enabled = true;
+        if (player != null) player.GetComponent<InputState>().enabled = true; // enable the input
         Time.timeScale = 1;
     }
 
     void PauseGame() {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) player.GetComponent<InputState>().enabled = false;
+        if (player != null) player.GetComponent<InputState>().enabled = false; // disable the input
         Time.timeScale = 0;
     }
 
@@ -184,11 +181,9 @@ public class GameManager : MonoBehaviour {
     public void OnGameEnd(bool killed) {
         if (!gameOver) {
             gameOver = true;
-            foreach (BasicSpawner spawner in spawners) {
+            foreach (BasicSpawner spawner in spawners) {  // set all the spawners inactive
                 spawner.active = false;
             }
-
-            //timeManager.ManipulateTime(0, 0.5f);
             StartCoroutine(GameEnd(killed));
         }
     }
@@ -199,13 +194,13 @@ public class GameManager : MonoBehaviour {
         player.GetComponent<InputState>().enabled = false;
         player.GetComponent<Actions>().enabled = false;
         player.GetComponent<Animator>().enabled = false;
-        player.layer = 15;
+        player.layer = 15; // set player to Gameover1 layer. no collision with rockets any more.
 
         if (killed) {
             musicClips.clip = musicClips.GetComponent<Music>().deathMusic1;
             musicClips.Play();
             yield return new WaitForSeconds(1);
-            player.layer = 16;
+            player.layer = 16; // set player to Gameover2 layer. the player will fall
 
             player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 10f);
             musicClips.clip = musicClips.GetComponent<Music>().deathMusic2;
@@ -231,6 +226,9 @@ public class GameManager : MonoBehaviour {
         continueText.text = String.Format("Press Enter Key To Try Again");
         Time.timeScale = 0;
     }
+
+
+
 
 
     // Destory recycleable GameObejects being inactive for destoryInactiveDuration

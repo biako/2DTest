@@ -122,7 +122,6 @@
     <Compile Include="Assets\Scripts\Spawner\RocketEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\SetVelocity.cs" />
     <Compile Include="Assets\Scripts\TiledBackground.cs" />
-    <Compile Include="Assets\Scripts\UI\UI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

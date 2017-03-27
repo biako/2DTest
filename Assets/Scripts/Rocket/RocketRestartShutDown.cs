@@ -12,7 +12,7 @@ public class RocketRestartShutDown : MonoBehaviour, IRecycle {
     
     void IRecycle.Restart() {
         body2d.velocity = velocity;
-        gameObject.layer = 14;
+        gameObject.layer = 14; // set it to the rocket layer
 
     }
 

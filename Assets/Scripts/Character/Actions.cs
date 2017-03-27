@@ -19,33 +19,19 @@ public class Actions : MonoBehaviour {
     }
 
     void Update() {
+        if (inputState.jumpButtonDown && inputState.standing) {
+            soundClips.pitch = 1.0f;
+            soundClips.clip = soundClips.GetComponent<AudioClips>().jumpClip;
+            soundClips.Play();
+            body2d.velocity = new Vector2(body2d.velocity.x, jumpSpeed);
+        }
 
-        if (inputState.standing) {
-            if (inputState.jumpButtonDown) {
-                soundClips.pitch = 1.0f;
-                soundClips.clip = soundClips.GetComponent<AudioClips>().jumpClip;
-                soundClips.Play();
-                if (inputState.rightButton)
-                    body2d.velocity = new Vector2(forwardSpeed, jumpSpeed);
-                if (inputState.leftButton)
-                    body2d.velocity = new Vector2(-forwardSpeed, jumpSpeed);
-                if (!inputState.leftButton && !inputState.rightButton)
-                    body2d.velocity = new Vector2(body2d.velocity.x, jumpSpeed); //body2d.velocity.x?
-            }
-            else if (inputState.rightButton) {
-                if (inputState.jumpButtonDown)
-                    body2d.velocity = new Vector2(forwardSpeed, jumpSpeed);
-                else body2d.velocity = new Vector2(forwardSpeed, 0);
+        if (inputState.rightButton) {
+            body2d.velocity = new Vector2(forwardSpeed, body2d.velocity.y);
+        }
 
-            }
-            else if (inputState.leftButton) {
-                if (inputState.jumpButtonDown)
-                    body2d.velocity = new Vector2(-forwardSpeed, jumpSpeed);
-                else body2d.velocity = new Vector2(-forwardSpeed, 0);
-
-            }
+        if (inputState.leftButton) {
+            body2d.velocity = new Vector2(-forwardSpeed, body2d.velocity.y);
         }
     }
-
-
 }

@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputState : MonoBehaviour {
-    public bool jumpButtonDown, rightButton, leftButton, noInput; // button pressed?
-    public float absVelx = 0f; // the velocity of x
+    public bool jumpButtonDown, rightButton, leftButton, noInput; // button pressed?    
     public float absVely = 0f; // the velocity of y
 
     public bool standing; // standing?
 
-    public float standingVelocityThreshold = 0f; // standing threshold for velocity of y
+    public float standingVelocityThreshold = 0.0005f; // standing threshold for velocity of y
     public bool lastInputRight = true; // last input is right?
 
     private Rigidbody2D body2d;
@@ -17,12 +16,12 @@ public class InputState : MonoBehaviour {
     // Rigidbody should get during Awake, not Start
     void Awake() {
         body2d = GetComponent<Rigidbody2D>();
-        lastInputRight = true;
+        lastInputRight = true; // to reset the facing bool
 
     }
 
     void Start() {
-        lastInputRight = true;
+        lastInputRight = true; // to reset the facing bool
     }
 
     // Input should be checked during Update
@@ -30,8 +29,7 @@ public class InputState : MonoBehaviour {
         if (Time.timeScale != 0) {
             jumpButtonDown = Input.GetButtonDown("Jump");
             rightButton = Input.GetAxis("Horizontal") > 0; // Return true if right button is down.       
-            leftButton = Input.GetAxis("Horizontal") < 0;
-            //noInput = !(jumpButtonDown || leftButton || rightButton); // No valid input at all
+            leftButton = Input.GetAxis("Horizontal") < 0;            
 
             if (leftButton) {
                 if (lastInputRight) flip();
@@ -41,8 +39,7 @@ public class InputState : MonoBehaviour {
             if (rightButton) {
                 if (!lastInputRight) flip();
                 lastInputRight = true;
-            }
-            
+            }            
         }
         else {
             lastInputRight = true;
@@ -52,8 +49,8 @@ public class InputState : MonoBehaviour {
     // Rendering of rigidbody should be done in fixedupdate
     void FixedUpdate() {
         absVely = Mathf.Abs(body2d.velocity.y); // get the aboslute of the velocity v of the rigidbody
-        //standing = (absVely <= standingVelocityThreshold); // return true if <= the threshold
-        standing = (absVely == 0);
+        standing = (absVely <= standingVelocityThreshold); // return true if <= the threshold
+        //standing = (absVely == 0);
     }
 
     void flip() {

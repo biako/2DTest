@@ -61,7 +61,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 5
-  m_LinearDrag: 0.5
+  m_LinearDrag: 0
   m_AngularDrag: 0.5
   m_GravityScale: 8
   m_Material: {fileID: 0}
@@ -139,10 +139,10 @@ MonoBehaviour:
   rightButton: 0
   leftButton: 0
   noInput: 0
-  absVelx: 0
   absVely: 0
   standing: 0
   standingVelocityThreshold: 1
+  lastInputRight: 1
 --- !u!114 &114646321999254850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSpeed: 50
-  forwardSpeed: 10
+  forwardSpeed: 8
   soundClips: {fileID: 0}
 --- !u!114 &114911171814948782
 MonoBehaviour:

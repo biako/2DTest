@@ -9,13 +9,4 @@ public class Music : MonoBehaviour {
     public AudioClip deathMusic2;
     public AudioClip gameOverMusic;
     public AudioClip timeupMusic;
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

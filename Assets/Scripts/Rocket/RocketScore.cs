@@ -20,8 +20,10 @@ public class RocketScore : MonoBehaviour {
             soundClips.clip = soundClips.GetComponent<AudioClips>().scoreClip;
             soundClips.Play();
             gameManager.score += 10; // add score
-            //gameObject.transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0,-40f); // push the rocket down
-            gameObject.transform.parent.gameObject.layer = 16;
+            if (gameObject.transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity.y <= 0)
+                gameObject.transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -30f); // push the rocket down
+            else gameObject.transform.parent.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 20f); // push the rocket up
+            gameObject.transform.parent.gameObject.layer = 16; // set it to the Gameover2 layer, so that no interaction with other objects
 
         }
 

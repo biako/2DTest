@@ -12,7 +12,6 @@ public class RocketScript : MonoBehaviour {
 
     void OnExplode() {
         // Create a quaternion with a random rotation in the z-axis.
-
         Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
 
         // Instantiate the explosion where the rocket is with the random rotation.
@@ -23,12 +22,12 @@ public class RocketScript : MonoBehaviour {
         coltag = collision.gameObject.tag;
         OnExplode();
         GameObjectUtil.Destroy(gameObject.transform.parent.gameObject); // Destroy the rocket
-        // If it hits the player...
 
+        // If it hits the player...
         if (collision.gameObject.tag == "Player") {
             // ... find the Player script and call the Hurt function.
             //collision.gameObject.GetComponent<HealthHurt>().Hurt();
-            gameManager.OnGameEnd(true);
+            gameManager.OnGameEnd(true); // call OnGameEnd and killed parameter is true
 
         }           
 
