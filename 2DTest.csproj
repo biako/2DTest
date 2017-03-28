@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\BackgroundPropSpawner.cs" />
     <Compile Include="Assets\Scripts\Bomb.cs" />
     <Compile Include="Assets\Scripts\BombPickup.cs" />
+    <Compile Include="Assets\Scripts\Camera\BackGroundMove.cs" />
     <Compile Include="Assets\Scripts\Camera\PixelPerfectCamera.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Character\Actions.cs" />

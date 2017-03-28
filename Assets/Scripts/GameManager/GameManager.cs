@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     private GameObject[] pools;
     private bool gameStarted; // Game has started?
     private bool playerKilled; // Player killed?
+    private bool firstTime; // Is this the first time for the game to start? If first time, use any key to continue; or use enter key to try again
 
     public Text timeText, scoreText, continueText, gameOverText, countDownText;
     public AudioSource soundClips, musicClips;
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour {
     public int totalSeconds;
     public float timeRemaining;
 
-    
+
     public double destoryInactiveDuration = 30d; // If the recycled object is inactive for this duration, the recycled object is destoryed permanently.
     public float garbageCollectionInterval = 10f; // Interval for the garbagae colleciton process to run.
 
@@ -35,8 +36,9 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         playerKilled = false;
         gameStarted = false;
+        firstTime = true;
         score = 0;
-        continueText.text = "Press Enter Key To Continue";
+        continueText.text = "Press 'Any' Key To Continue";
         scoreText.text = "0";
         gameOverText.text = "Game Over";
         gameOverText.canvasRenderer.SetAlpha(0);
@@ -47,15 +49,22 @@ public class GameManager : MonoBehaviour {
 
     void Update() {
         // if game has not started, press key to start
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
+        }
+
         if (!gameStarted && Time.timeScale == 0) {
-            if (Input.GetKeyDown(KeyCode.Return)) {
+            if ((firstTime && Input.anyKeyDown)
+                || (!firstTime && Input.GetKeyDown(KeyCode.Return)
+                )) {
+                firstTime = false;
                 ResumeGame();
                 ResetGame();
             }
         }
 
         // if game has started, for the pauser:
-        if (Input.GetKeyDown(KeyCode.P) && gameStarted && !gameOver) {      
+        if (Input.GetKeyDown(KeyCode.P) && gameStarted && !gameOver) {
             soundClips.pitch = 1.0f;
             soundClips.clip = soundClips.GetComponent<AudioClips>().startClip;
             soundClips.Play();
@@ -68,7 +77,7 @@ public class GameManager : MonoBehaviour {
         }
 
         // if game has not started, set the blink text
-        if (!gameStarted) { 
+        if (!gameStarted) {
             blinkTime++;
             if (blinkTime % 30 == 0) {
                 blink = !blink;
@@ -122,7 +131,7 @@ public class GameManager : MonoBehaviour {
         timeText.text = FormatTime(0);
         StartCoroutine(CountDownResetGame(3));
     }
-    
+
     private IEnumerator CountDownResetGame(int seconds) {
         countDownText.text = "";
         soundClips.pitch = 1.0f;
@@ -153,6 +162,7 @@ public class GameManager : MonoBehaviour {
         gameStarted = true;
 
         musicClips.clip = musicClips.GetComponent<Music>().musicMusic;
+        musicClips.loop = true;
         musicClips.Play();
 
         foreach (BasicSpawner spawner in spawners) { // set all the spawners active
@@ -194,6 +204,7 @@ public class GameManager : MonoBehaviour {
         player.GetComponent<InputState>().enabled = false;
         player.GetComponent<Actions>().enabled = false;
         player.GetComponent<Animator>().enabled = false;
+        musicClips.loop = false;
         player.layer = 15; // set player to Gameover1 layer. no collision with rockets any more.
 
         if (killed) {
