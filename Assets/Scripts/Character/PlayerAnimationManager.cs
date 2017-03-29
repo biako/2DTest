@@ -16,7 +16,7 @@ public class PlayerAnimationManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        animator.SetBool("IsRunning", inputState.leftButton || inputState.rightButton); 
+        animator.SetBool("IsRunning", Input.GetButton("Horizontal")); 
         animator.SetBool("IsJumping", inputState.jumpButtonDown|| Mathf.Abs(body2d.velocity.y) > stillThreshold);
         //animator.SetBool("IsStill", Mathf.Abs(body2d.velocity.x) == 0 && Mathf.Abs(body2d.velocity.y) == 0); //No longer necessary
     }

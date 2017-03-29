@@ -33,5 +33,8 @@ public class Actions : MonoBehaviour {
         if (inputState.leftButton) {
             body2d.velocity = new Vector2(-forwardSpeed, body2d.velocity.y);
         }
+        if (!Input.GetButton("Horizontal")) {
+            body2d.velocity = new Vector2(0, body2d.velocity.y);
+        }
     }
 }
