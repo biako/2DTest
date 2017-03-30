@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7515ff692b12964d9e323a540554f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destoryOffset: 10
+  destoryOffset: 50
 --- !u!114 &114963211868373614
 MonoBehaviour:
   m_ObjectHideFlags: 1
