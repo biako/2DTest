@@ -80,9 +80,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.026457787, y: 0.013229132}
+  m_Offset: {x: 0.09059143, y: 0.07119793}
   serializedVersion: 2
-  m_Size: {x: 1.1747959, y: 1.5035415}
+  m_Size: {x: 0.9189882, y: 1.6095124}
 --- !u!95 &95940830882079568
 Animator:
   serializedVersion: 3
@@ -90,7 +90,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1489378897198114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 187bae4a651982142a35af808d4526f4, type: 2}
   m_CullingMode: 0
@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f951b71ff6514748b0fc369b2bad11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standingGroundThreshold: 1
+  standingGroundThreshold: 0.5
   standing: 0
+  isCollision: 0
   lastInputRight: 1
   jumpButtonDown: 0
   rightButton: 0
@@ -208,7 +209,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1783731295
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300010, guid: 267b1a5aab0830d45bc89663a8f3efe0, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 267b1a5aab0830d45bc89663a8f3efe0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

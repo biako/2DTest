@@ -19,21 +19,25 @@ public class Actions : MonoBehaviour {
     }
 
     void Update() {
-        if (inputState.jumpButtonDown && inputState.standing) {
+        if (inputState.jumpButtonDown && inputState.standing) { // When standing and jumping
             soundClips.pitch = 1.0f;
             soundClips.clip = soundClips.GetComponent<AudioClips>().jumpClip;
             soundClips.Play();
             body2d.velocity = new Vector2(body2d.velocity.x, jumpSpeed);
         }
 
-        if (inputState.rightButton) {
-            body2d.velocity = new Vector2(forwardSpeed, body2d.velocity.y);
+        if ((!inputState.isCollision && !inputState.standing) || inputState.standing) { // When jumping but no obstcles and when standing
+
+            if (inputState.rightButton) {
+                body2d.velocity = new Vector2(forwardSpeed, body2d.velocity.y);
+            }
+
+            if (inputState.leftButton) {
+                body2d.velocity = new Vector2(-forwardSpeed, body2d.velocity.y);
+            }
         }
 
-        if (inputState.leftButton) {
-            body2d.velocity = new Vector2(-forwardSpeed, body2d.velocity.y);
-        }
-        if (!Input.GetButton("Horizontal")) {
+        if (!Input.GetButton("Horizontal")) { // When no horizontal input, no horizontal velocity
             body2d.velocity = new Vector2(0, body2d.velocity.y);
         }
     }
