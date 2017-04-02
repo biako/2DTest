@@ -33,7 +33,10 @@ public class DestoryOffScreen : MonoBehaviour {
             else if (dirX > 0 && posX > offscreenX) { // if facing right
                 offscreen = true;
             }
-            else if (dirX < 0 && posY < -offscreenY) { // if facing down
+            else if (dirY < 0 && posY < -offscreenY) { // if facing down
+                offscreen = true;
+            }
+            else if (dirY > 0 && posY > offscreenY) { // if facing down
                 offscreen = true;
             }
             else {

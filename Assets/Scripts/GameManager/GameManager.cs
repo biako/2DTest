@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class GameManager : MonoBehaviour {
     public List<BasicSpawner> spawners;
@@ -13,8 +14,12 @@ public class GameManager : MonoBehaviour {
     private bool firstTime; // Is this the first time for the game to start? If first time, use any key to continue; or use enter key to try again
 
     public Text timeText, scoreText, continueText, gameOverText, countDownText;
+    public Image titleLogo;
     public AudioSource soundClips, musicClips;
 
+#if MOBILE_INPUT
+    public GameObject mobileControl;
+#endif
     private bool gameOver;
     private int blinkTime;
     private bool blink;
@@ -33,18 +38,32 @@ public class GameManager : MonoBehaviour {
 
 
     void Start() {
-        Time.timeScale = 0;
+        Time.timeScale = 1;
+        StartCoroutine(OnLaunchGame());
+    }
+
+    private IEnumerator OnLaunchGame() {
+#if MOBILE_INPUT
+        mobileControl.SetActive(false);
+#endif
+        GameObject.Find("Frogs").GetComponent<Animator>().enabled = false;
         playerKilled = false;
         gameStarted = false;
         firstTime = true;
         score = 0;
-        continueText.text = "Press 'Any' Key To Continue";
         scoreText.text = "0";
         gameOverText.text = "Game Over";
         gameOverText.canvasRenderer.SetAlpha(0);
         totalSeconds = 60;
         timeRemaining = totalSeconds;
         timeText.text = FormatTime(timeRemaining);
+        titleLogo.enabled = true;
+        yield return new WaitForSeconds(5);
+
+        titleLogo.GetComponent<Animator>().enabled = false;
+        Time.timeScale = 0;
+        continueText.text = "Touch To Continue";
+
     }
 
     void Update() {
@@ -54,9 +73,8 @@ public class GameManager : MonoBehaviour {
         }
 
         if (!gameStarted && Time.timeScale == 0) {
-            if ((firstTime && Input.anyKeyDown)
-                || (!firstTime && Input.GetKeyDown(KeyCode.Return)
-                )) {
+            if (firstTime && Input.anyKeyDown ||
+                !firstTime && Input.anyKeyDown) {
                 firstTime = false;
                 ResumeGame();
                 ResetGame();
@@ -106,6 +124,9 @@ public class GameManager : MonoBehaviour {
 
 
 
+
+
+
     string FormatTime(float value) { // convert to time format as "00:00"
         TimeSpan t = TimeSpan.FromSeconds(value);
         return string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
@@ -118,7 +139,8 @@ public class GameManager : MonoBehaviour {
             GameObjectUtil.Destroy(GameObject.FindGameObjectsWithTag("Player"));
             GameObjectUtil.Destroy(GameObject.FindGameObjectsWithTag("Rocket"));
         }
-
+        GameObject.Find("Frogs").GetComponent<Animator>().enabled = true;
+        titleLogo.enabled = false;
         gameOver = false;
         continueText.text = "";
         scoreText.text = "0";
@@ -169,6 +191,10 @@ public class GameManager : MonoBehaviour {
             spawner.active = true;
         }
 
+#if MOBILE_INPUT
+        mobileControl.SetActive(true);
+#endif
+
         StartCoroutine(GarbageCollection()); // start garbage collection coroutine
 
     }
@@ -199,6 +225,9 @@ public class GameManager : MonoBehaviour {
     }
 
     IEnumerator GameEnd(bool killed) {
+#if MOBILE_INPUT
+        mobileControl.SetActive(false);
+#endif
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         player.GetComponent<InputState>().enabled = false;
@@ -234,7 +263,7 @@ public class GameManager : MonoBehaviour {
         }
 
         gameStarted = false;
-        continueText.text = String.Format("Press Enter Key To Try Again");
+        continueText.text = String.Format("Touch To Try Again");
         Time.timeScale = 0;
     }
 

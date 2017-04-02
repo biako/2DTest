@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 854dfce91e7a145488c5e17051f00657
+timeCreated: 1491118947
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - PointSkin: {fileID: 11400000, guid: b14803c36e4bb01479161924b424cb8b, type: 2}
+  - PointSkinShadow: {fileID: 11400000, guid: 53eb731ec52f99847b190c14c6c645ab, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

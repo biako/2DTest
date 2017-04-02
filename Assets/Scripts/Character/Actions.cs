@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Actions : MonoBehaviour {
 
@@ -37,7 +38,11 @@ public class Actions : MonoBehaviour {
             }
         }
 
-        if (!Input.GetButton("Horizontal")) { // When no horizontal input, no horizontal velocity
+#if MOBILE_INPUT
+        if (CrossPlatformInputManager.GetAxis("Horizontal") == 0 ) { // When no horizontal input, no horizontal velocity. This is for mobile
+#else
+        if (!Input.GetButton("Horizontal")) { // This is for PC
+#endif
             body2d.velocity = new Vector2(0, body2d.velocity.y);
         }
     }

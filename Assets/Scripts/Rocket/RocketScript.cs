@@ -5,6 +5,7 @@ public class RocketScript : MonoBehaviour {
     public GameObject explosion;		// Prefab of explosion effect.
     public GameManager gameManager; 
     public string coltag;
+    public bool scored; // If already give a score for this rocket.
 
     void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();

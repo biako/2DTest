@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class InputState : MonoBehaviour {
     private Rigidbody2D body2d;
@@ -12,12 +13,13 @@ public class InputState : MonoBehaviour {
     public float standingGroundThreshold = 0.5f; // the threshold for detecting if grounded. if hitDistance is less than the threshold, the GameObject is determined to be grounded.
     public bool standing; // is standing on ground?
 
-    public bool isCollision;    
+    public bool isCollision;
 
     public bool lastInputRight = true; // last input is right?
 
     public bool jumpButtonDown, rightButton, leftButton; // which button pressed? 
-   
+
+    public float getAxixValue;
 
     // Rigidbody should get during Awake, not Start
     void Awake() {
@@ -33,9 +35,10 @@ public class InputState : MonoBehaviour {
     // Input should be checked during Update
     void Update() {
         if (Time.timeScale != 0) {
-            jumpButtonDown = Input.GetButtonDown("Jump");
-            rightButton = Input.GetAxis("Horizontal") > 0; // Return true if right button is down.       
-            leftButton = Input.GetAxis("Horizontal") < 0; // Return true if left button is down.       
+            getAxixValue = CrossPlatformInputManager.GetAxis("Horizontal");
+            jumpButtonDown = CrossPlatformInputManager.GetButtonDown("Jump");
+            rightButton = CrossPlatformInputManager.GetAxis("Horizontal") > 0; // Return true if right button is down.       
+            leftButton = CrossPlatformInputManager.GetAxis("Horizontal") < 0; // Return true if left button is down.       
 
             if (leftButton) {
                 if (lastInputRight) flip();
@@ -55,20 +58,37 @@ public class InputState : MonoBehaviour {
     // Rendering in connection with rigidbody should be done in FixedUpdate instead of Update
     void FixedUpdate() {
         collider2d = GetComponent<BoxCollider2D>(); // get the BoxCollider2D component from the GameObject
-        standing = IsStanding(collider2d);
+        if (collider2d != null) standing = IsStanding(collider2d);
     }
 
     bool IsStanding(BoxCollider2D collider2d) {
         // cast the ray from the left bottom and right bottom edge of the BoxCollider2D downward. (Vector2.down == new Vector2 (0,-1))
-        hitBottomLeft = Physics2D.Raycast(new Vector2(transform.position.x - collider2d.size.x / 2 + collider2d.offset.x, transform.position.y - collider2d.size.y / 2 + collider2d.offset.y), Vector2.down);
-        hitBottomRight = Physics2D.Raycast(new Vector2(transform.position.x + collider2d.size.x / 2 + collider2d.offset.x, transform.position.y - collider2d.size.y / 2 + collider2d.offset.y), Vector2.down);
+        if (collider2d != null) {
+            //
+            // NOTE: THE BUG UNSOLVABLE IF THE ADJUSTMENT VALUE IS -0.05f IN THE LINE BELOW: 
+            //
+            // hitBottomLeft = Physics2D.Raycast(new Vector2(transform.position.x - collider2d.size.x / 2 + collider2d.offset.x - 0.05f, transform.position.y - collider2d.size.y / 2 + collider2d.offset.y), Vector2.down);
+            //
+            // WHEN THE PLAYER HITS THE LEFT WALL, NULLREFERENCEEXCEPTION COMPLIER WARNING APPEARS AS BELOW: 
+            // NullReferenceException: Object reference not set to an instance of an object in the line below:
+            //
+            // if (hitBottomLeft.collider.tag == "ground") hitBottomDistanceLeft = hitBottomLeft.distance;
+            //
+            //
+
+            hitBottomLeft = Physics2D.Raycast(new Vector2(transform.position.x - collider2d.size.x / 2 + collider2d.offset.x - 0.02f, transform.position.y - collider2d.size.y / 2 + collider2d.offset.y), Vector2.down);
+
+            hitBottomRight = Physics2D.Raycast(new Vector2(transform.position.x + collider2d.size.x / 2 + collider2d.offset.x + 0.02f, transform.position.y - collider2d.size.y / 2 + collider2d.offset.y), Vector2.down);
+
+            // if the ray from the left bottom or right bottom hit a collider with tag "ground", get the hitDistanceLeft and hitDistanceRight        
+            if (hitBottomRight.collider.tag == "ground") hitBottomDistanceRight = hitBottomRight.distance;
+            if (hitBottomLeft.collider.tag == "ground") hitBottomDistanceLeft = hitBottomLeft.distance;
 
 
-        // if the ray from the left bottom or right bottom hit a collider with tag "ground", get the hitDistanceLeft and hitDistanceRight
-        if (hitBottomRight.collider.tag == "ground") hitBottomDistanceRight = hitBottomRight.distance;
-        if (hitBottomLeft.collider.tag == "ground") hitBottomDistanceLeft = hitBottomLeft.distance;
-
-        return (hitBottomDistanceLeft <= standingGroundThreshold) || (hitBottomDistanceRight <= standingGroundThreshold); // return true (the GameObejct is grounded) if hitDistance from either side is less than or equal to the threshold. (if either side is grounded, it is grounded) 
+            // return true (the GameObejct is grounded) if hitDistance from either side is less than or equal to the threshold. (if either side is grounded, it is grounded) 
+            return (hitBottomDistanceLeft <= standingGroundThreshold) || (hitBottomDistanceRight <= standingGroundThreshold);
+        }
+        return true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -81,9 +101,9 @@ public class InputState : MonoBehaviour {
 
     private void OnCollisionExit2D(Collision2D collision) {
         isCollision = false;
-    } 
+    }
 
-    
+
     void flip() {
         if (leftButton) transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
         if (rightButton) transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);

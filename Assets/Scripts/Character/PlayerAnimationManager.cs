@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerAnimationManager : MonoBehaviour {    
     private Animator animator;
@@ -16,6 +17,10 @@ public class PlayerAnimationManager : MonoBehaviour {
 
     private void FixedUpdate() {
         animator.SetBool("IsJumping", !GetComponent<InputState>().standing);
-        animator.SetBool("IsRunning", Input.GetButton("Horizontal"));       
+#if MOBILE_INPUT
+        animator.SetBool("IsRunning", inputState.rightButton || inputState.leftButton); // This is for mobile
+#else
+        animator.SetBool("IsRunning", Input.GetButton("Horizontal"));  // This is for PC
+#endif
     }
 }

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 95977072124895094}
   m_Layer: 14
   m_Name: flame
-  m_TagString: Rocket
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 114621579206563618}
   m_Layer: 14
   m_Name: body_rocket
-  m_TagString: Rocket
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 114635164497671666}
   - component: {fileID: 114236343811202032}
   - component: {fileID: 114515198173836898}
+  - component: {fileID: 114956056410912806}
   m_Layer: 14
   m_Name: RocketTest
   m_TagString: Rocket
@@ -93,7 +94,7 @@ GameObject:
   - component: {fileID: 58067036734874256}
   m_Layer: 14
   m_Name: head_rocket
-  m_TagString: Rocket
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,6 +299,7 @@ MonoBehaviour:
   explosion: {fileID: 100000, guid: c99c636a1271d114ea7181bbb4639cb1, type: 2}
   gameManager: {fileID: 0}
   coltag: 
+  scored: 0
 --- !u!114 &114515198173836898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -324,6 +326,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   soundClips: {fileID: 0}
   coltag: 
+  scoreAnimation: {fileID: 0}
 --- !u!114 &114635164497671666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,7 +338,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7515ff692b12964d9e323a540554f05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destoryOffset: 50
+  destoryOffset: 100
+--- !u!114 &114956056410912806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1708699446837098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854dfce91e7a145488c5e17051f00657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  point: 0
+  targX: 0
+  targY: 0
+  screenPos: {x: 0, y: 0, z: 0}
+  pointSkin: {fileID: 11400000, guid: b14803c36e4bb01479161924b424cb8b, type: 2}
+  pointSkinShadow: {fileID: 11400000, guid: 53eb731ec52f99847b190c14c6c645ab, type: 2}
 --- !u!114 &114963211868373614
 MonoBehaviour:
   m_ObjectHideFlags: 1
