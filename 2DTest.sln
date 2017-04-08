@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2DTest.Plugins", "2DTest.Plugins.csproj", "{38EB22B5-94B0-1CDB-40A5-70AC38CD8832}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2DTest", "2DTest.csproj", "{C8251E16-0680-57C4-1AAE-96EEEFA6FFF5}"
