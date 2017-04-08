@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level.unity
     guid: 69575e6f2904c4c7dafafe28c5ec7068
-  - enabled: 0
-    path: Assets/Scenes/Test Scene.unity
+  - enabled: 1
+    path: Assets/Scenes/Menu 3D.unity
+    guid: fa0913115ac1d4fba8b9d10280f4b04d
+  - enabled: 1
+    path: Assets/Scenes/RocketWar.unity
     guid: e33ce79c4f87a2e47ace2c22ab77cfc2
   - enabled: 1
-    path: Assets/Scenes/Anroid Plugin Test.unity
+    path: Assets/Scenes/AnroidPlugin.unity
     guid: 464689247aca2dc48a54119c2f1ce4b5

@@ -84,7 +84,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ActiveStateToggler.cs" />
     <Compile Include="Assets\Scripts\AnimatedTexture.cs" />
+    <Compile Include="Assets\Scripts\ApplicationManager.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioClips.cs" />
     <Compile Include="Assets\Scripts\Audio\Music.cs" />
     <Compile Include="Assets\Scripts\BackgroundParallax.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Assets\Scripts\Camera\BackGroundMove.cs" />
     <Compile Include="Assets\Scripts\Camera\PixelPerfectCamera.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\Scripts\ChangeColor.cs" />
     <Compile Include="Assets\Scripts\Character\Actions.cs" />
     <Compile Include="Assets\Scripts\Character\HealthHurt.cs" />
     <Compile Include="Assets\Scripts\Character\InputState.cs" />
@@ -102,6 +105,9 @@
     <Compile Include="Assets\Scripts\Destory\DestroyerTest.cs" />
     <Compile Include="Assets\Scripts\Destory\TriggerDestory.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />
+    <Compile Include="Assets\Scripts\DragMe.cs" />
+    <Compile Include="Assets\Scripts\DragPanel.cs" />
+    <Compile Include="Assets\Scripts\DropMe.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\FollowPlayer.cs" />
     <Compile Include="Assets\Scripts\GameManager\GameManager.cs" />
@@ -110,6 +116,7 @@
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\HealthPickup.cs" />
     <Compile Include="Assets\Scripts\LayBombs.cs" />
+    <Compile Include="Assets\Scripts\PanelManager.cs" />
     <Compile Include="Assets\Scripts\Pauser.cs" />
     <Compile Include="Assets\Scripts\PickupSpawner.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
@@ -124,21 +131,29 @@
     <Compile Include="Assets\Scripts\Recycle\RecycleGameObject.cs" />
     <Compile Include="Assets\Scripts\Recycle\RestartShutdown.cs" />
     <Compile Include="Assets\Scripts\Remover.cs" />
+    <Compile Include="Assets\Scripts\ResizePanel.cs" />
     <Compile Include="Assets\Scripts\Rocket.cs" />
     <Compile Include="Assets\Scripts\Rocket\RocketRestartShutDown.cs" />
     <Compile Include="Assets\Scripts\Rocket\RocketScore.cs" />
     <Compile Include="Assets\Scripts\Rocket\RocketScript.cs" />
+    <Compile Include="Assets\Scripts\SceneManager\SceneLoader.cs" />
     <Compile Include="Assets\Scripts\Score.cs" />
     <Compile Include="Assets\Scripts\ScoreShadow.cs" />
+    <Compile Include="Assets\Scripts\ScrollDetailTexture.cs" />
     <Compile Include="Assets\Scripts\SetParticleSortingLayer.cs" />
+    <Compile Include="Assets\Scripts\ShowSliderValue.cs" />
     <Compile Include="Assets\Scripts\Spawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\BasicSpawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\RocketEnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Spawner\SetVelocity.cs" />
     <Compile Include="Assets\Scripts\TiledBackground.cs" />
+    <Compile Include="Assets\Scripts\TiltWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\Materials\UI-Default-No-Alpha.shader" />
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

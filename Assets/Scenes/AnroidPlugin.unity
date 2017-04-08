@@ -314,10 +314,10 @@ RectTransform:
   m_Father: {fileID: 180434137}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 16.75, y: 144}
-  m_SizeDelta: {x: -1028.5, y: -919}
+  m_SizeDelta: {x: 891.5, y: 161}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &393781869
 MonoBehaviour:
@@ -491,7 +491,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1125531383}
+      - m_Target: {fileID: 505608160}
         m_MethodName: SetToast
         m_Mode: 1
         m_Arguments:
@@ -537,6 +537,51 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 427038736}
+--- !u!1 &505608159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 505608161}
+  - component: {fileID: 505608160}
+  m_Layer: 0
+  m_Name: PluginManager
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &505608160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 505608159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2bb61c6d1628d4fa665afeea214a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text:
+    title: "\u8D2D\u4E70\u786E\u8BA4"
+    message: "\u662F\u5426\u7EE7\u7EED\u8D2D\u4E70\uFF1F"
+    buttonTitle: "\u786E\u8BA4"
+    cancelButtonTitle: "\u53D6\u6D88"
+--- !u!4 &505608161
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 505608159}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 32.50361, y: 18.80513, z: 10.294188}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840738049
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +817,6 @@ GameObject:
   - component: {fileID: 1125531377}
   - component: {fileID: 1125531376}
   - component: {fileID: 1125531381}
-  - component: {fileID: 1125531383}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -863,22 +907,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenHeight: 0
   nativeResolution: {x: 1920, y: 1080}
---- !u!114 &1125531383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1125531375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b2bb61c6d1628d4fa665afeea214a52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text:
-    title: "\u8D2D\u4E70\u786E\u8BA4"
-    message: "\u662F\u5426\u7EE7\u7EED\u8D2D\u4E70\uFF1F"
-    buttonTitle: "\u786E\u8BA4"
-    cancelButtonTitle: "\u53D6\u6D88"
 --- !u!1 &1264342372
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +983,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1125531383}
+      - m_Target: {fileID: 505608160}
         m_MethodName: Show
         m_Mode: 1
         m_Arguments:
@@ -1077,7 +1105,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1125531383}
+      - m_Target: {fileID: 505608160}
         m_MethodName: DisplayText
         m_Mode: 1
         m_Arguments:
@@ -1153,10 +1181,10 @@ RectTransform:
   m_Father: {fileID: 180434137}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 363}
-  m_SizeDelta: {x: -1329, y: -874}
+  m_SizeDelta: {x: 591, y: 206}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1480060086
 MonoBehaviour:
@@ -1409,7 +1437,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1125531383}
+      - m_Target: {fileID: 505608160}
         m_MethodName: SetText
         m_Mode: 1
         m_Arguments:
